@@ -23,6 +23,6 @@ with tab1:
         st.dataframe(df)
     
 with tab2:
-    st.session_state.std_name = st.selectbox('test', ['Block 3', 'Astimex', 'NBS Metals','3R'])
+    st.session_state.std_name = st.selectbox('test', ['Block 3', 'NBS Metals', 'Astimex', '3R', 'Current Standard Holder', 'Block 4', 'NIST NBS Glasses'])
     image = Image.open('data/std_images/' + st.session_state.std_name + '.png')
     st.image(image, caption=st.session_state.std_name)
