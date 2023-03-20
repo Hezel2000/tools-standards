@@ -7,9 +7,9 @@ st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="backgroun
 
 st.title("IfG Powder Standards Database")
 ###st.write('Data')
-df_data = pd.read_csv('OxAndEl2.csv', sep=';')
-LookUp = pd.read_csv('LookUpTable.csv', sep=';')
-df_meta = pd.read_csv('Meta.csv', sep=';')
+df_data = pd.read_csv('data/OxAndEl2.csv', sep=';')
+LookUp = pd.read_csv('data/LookUpTable.csv', sep=';')
+df_meta = pd.read_csv('data/Meta.csv', sep=';')
 #error_bad_lines=False
 ### st.write(df_data) # zeigt alle Daten
 
