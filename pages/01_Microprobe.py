@@ -24,4 +24,5 @@ with tab1:
     
 with tab2:
     st.session_state.std_name = st.selectbox('test', ['Block 3', 'Astimex', 'NBS Metals','3R'])
-    st.image(Image.open('data/std_images/' + st.session_state.std_name + '.png'), caption=st.session_state.std_name)
+    image = Image.open('data/std_images/' + st.session_state.std_name + '.png')
+    st.image(image, caption=st.session_state.std_name)
