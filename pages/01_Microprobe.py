@@ -17,7 +17,7 @@ with tab1:
         st.session_state.el1_range = st.slider('sel', .0, 100.0, (0., 100.))
 
     fil = (df[st.session_state.el1] > st.session_state.el1_range[0]) & (df[st.session_state.el1] < st.session_state.el1_range[1])
-    st.dataframe(df[fil])
+    st.dataframe(df[fil].insert(3, df[fil][el1]))
 
     with st.expander('The entire standards table'):
         st.dataframe(df)
