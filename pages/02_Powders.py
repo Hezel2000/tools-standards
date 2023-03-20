@@ -3,7 +3,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 import numpy as np
-st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="background-color:LightRed;">Back to DataPro</button></a>''', unsafe_allow_html=True)
+st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="background-color:LightBlue;">Back to DataPro</button></a>''', unsafe_allow_html=True)
 
 st.title("IfG Powder Standards Database")
 ###st.write('Data')
