@@ -7,8 +7,9 @@ st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="backgroun
 
 st.title("IfG Powder Standards Database")
 ###st.write('Data')
-df_data = pd.read_csv('data/OxAndEl2.csv', sep=';')
-LookUp = pd.read_csv('data/LookUpTable.csv', sep=';')
+df_data = pd.read_csv('OxAndEl2.csv', sep=';')
+LookUp = pd.read_csv('LookUpTable.csv', sep=';')
+df_meta = pd.read_csv('Meta.csv', sep=';')
 #error_bad_lines=False
 ### st.write(df_data) # zeigt alle Daten
 
@@ -18,7 +19,7 @@ LookUp.set_index("Element", inplace=True)
 ###st.write(LookUp) # zeigt Zusatzinformationen
 #st.write(LookUp.loc[['Al'], ['Further information']])
 
-tab1, tab2, tab3 = st.tabs(["Standard", "Element", "Owl"])
+tab1, tab2, tab3 = st.tabs(["Standard", "Element", "Search"])
 
 with tab1:
    standard = st.multiselect("Select one or more standards:", options = df_data["Standard"].unique()) #, default = df_data["Standard"].unique())
@@ -30,7 +31,7 @@ with tab1:
       st.dataframe(df_data_selection.T)
 
       st.write('Information for the selected standard(s):')
-      df_meta = pd.read_csv('data/Meta.csv', sep=';')
+      #df_meta = pd.read_csv('Meta.csv', sep=';')
       df_meta.set_index("Standard", inplace = True)
 
       standardlist = []
@@ -46,6 +47,21 @@ with tab1:
 
       #df_meta
       #st.write('meta normal')
+      
+    
+
+# Define the CSS style
+      def color_alternate_rows(x):
+         if x[::2]:
+            return 'background-color: #f2f2f2'
+         else:
+            return 'background-color: #ffffff'
+
+# Apply the style to the dataframe
+      styled_df_data = df_data.style.applymap(color_alternate_rows)
+         
+# Display the styled dataframe
+      #styled_df_data
 
       def dfdark(styler):
        #styler.background_gradient(cmap='coolwarm')
@@ -126,19 +142,18 @@ with tab2:
       dfstandard = dfstandard.join(dfselected)
       dfstandard
 
-      #zeilen = df_data[df_data['Constituent'] == 'Concentration'].index # Jede Zeile zeigen in der Concentration steht
-      #for i in element:
-        #auswahl = df_data.columns.get_loc(i)
-        #d = df_data.iloc[zeilen, auswahl]
-        #scale = st.radio('Choose a scale', ("linear scale", "log scale"))
-        #if scale == "log scale":
-            #fig2 = px.scatter(x=std_names, y=d, log_y=True,  title = i)
-        #else:
-            #fig2 = px.scatter(x=std_names, y=d, title = i)
-
+      zeilen = df_data[df_data['Constituent'] == 'Concentration'].index # Index der Zeilen, in denen Concentration steht
+      for i in element: # für jedes Element Spalte herausfinden, Wert Konzentration zusammen mit Zeile herausfinden, Auswahlmöglichkeiten, if/else
+        auswahl = df_data.columns.get_loc(i) #Spalten der ausgewählten Elemente herausfinden
+        d = df_data.iloc[zeilen, auswahl] # Zeilen mit Konzentration der ausgewählten Elemente anzeigen # Konzentrationswerte aller Stabdards für Element
+        scale = st.radio('Choose a scale', ("linear scale", "log scale"), key="scalelinlog")
+        if scale == "log scale":
+            fig2 = px.scatter(x=std_names, y=d, log_y=True,  title = i)
+        else:
+            fig2 = px.scatter(x=std_names, y=d, title = i)
         #fig2 = px.scatter(x=std_names, y=d, log_y=True,  title = i)
-            #fig2.update_layout(xaxis_title="Standards", yaxis_title="Concentration in ppm")
-            #st.plotly_chart(fig2)
+        fig2.update_layout(xaxis_title="Standards", yaxis_title="Concentration in ppm")
+        st.plotly_chart(fig2)
 
       #zeilen = df_data[df_data['Constituent'] == 'Concentration'].index # Jede Zeile zeigen in der Concentration steht
       #for i in element:
@@ -149,21 +164,37 @@ with tab2:
         #st.plotly_chart(fig2)
 
 
-      zeilen = df_data[df_data['Constituent'] == 'Concentration'].index # Jede Zeile zeigen in der Concentration steht
-      for i in element:
-        auswahl = df_data.columns.get_loc(i)
-        d = df_data.iloc[zeilen, auswahl]
-        updatemenus = [dict(type="buttons",direction="right",buttons=list([dict(args=[{'yaxis.type': 'linear'}],label="Linear Scale",method="relayout"),
-              dict(args=[{'yaxis.type': 'log'}],label="Log Scale", method="relayout" )  ]) ),]
-        fig2 = px.scatter(x=std_names, y=d,  title = i)
-        fig2.update_layout(updatemenus=updatemenus, xaxis_title="Standards", yaxis_title="Concentration in ppm")
-        st.plotly_chart(fig2)
+      #zeilen = df_data[df_data['Constituent'] == 'Concentration'].index # Jede Zeile zeigen in der Concentration steht
+      #for i in element:
+        #auswahl = df_data.columns.get_loc(i)
+        #d = df_data.iloc[zeilen, auswahl]
+        #updatemenus = [dict(type="buttons",direction="right",buttons=list([dict(args=[{'yaxis.type': 'linear'}],label="Linear Scale",method="relayout"),
+              #dict(args=[{'yaxis.type': 'log'}],label="Log Scale", method="relayout" )  ]) ),]
+        #fig2 = px.scatter(x=std_names, y=d,  title = i)
+        #fig2.update_layout(updatemenus=updatemenus, xaxis_title="Standards", yaxis_title="Concentration in ppm")
+        #st.plotly_chart(fig2)
    
    
 with tab3:
-   st.header("An owl")
-   st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+   st.header("Search")
+   rocktypes = df_meta['rock type']
+   rocktype = st.multiselect("Select one or more rock types", options=list(rocktypes)) # Ausgewählte Gesteine
+   df_meta.set_index("rock type", inplace = True)
+   df_meta.loc[rocktype, :]
+   st.write('To get more information about the standard(s) please switch to the tab "Standards".')
+   
+   #rocktypelist = []
+   #for i in rocktype:
+      #auswahl2 = df_meta.index[df_meta['rock type']==i] # soll Zeilen aller ausgewählten Gesteine angeben
+      #auswahl2
+   #df_meta.iloc[auswahl2]
+      #e = df_meta.iloc[auswahl2, 1]
+      #rocktypelist.append(i)
+      #typestd = df_meta.loc[rocktypelist]
+      #st.dataframe(typestd.T)
 
+      
+     
 
 
 #st.write(LookUp['Element'])
