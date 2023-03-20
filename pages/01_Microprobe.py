@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 st.sidebar.button('Back to GeoPlatform', f'''<a href='http://geoplatform.de'><button style="background-color:LightYellow;">Back to GeoPlatform</button></a>''')
-st.sidebar.button(f'''<a href='http://geoplatform.de'><button style="background-color:GreenYellow;">Back to GeoPlatform</button></a>''',unsafe_allow_html=True)
+st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="background-color:GreenYellow;">Back to GeoPlatform</button></a>''',unsafe_allow_html=True)
 df = pd.read_csv('data/epma_standards.csv')
 elements = df.columns[10:129].tolist()
 
@@ -21,4 +21,4 @@ with tab1:
         st.dataframe(df)
     
 with tab2:
-    st.write('\test')
+    st.write('test')
