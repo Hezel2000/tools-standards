@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 
-st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="background-color:LightGreen;">Back to GeoPlatform</button></a>''',unsafe_allow_html=True)
+st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="background-color:LightRed;">Back to DataPro</button></a>''',unsafe_allow_html=True)
 
 df = pd.read_csv('data/epma_standards.csv')
 elements = df.columns[10:129].tolist()
