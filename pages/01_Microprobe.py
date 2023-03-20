@@ -7,7 +7,7 @@ st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="backgroun
 st.session_state.df = pd.read_csv('data/epma_standards.csv')
 elements = st.session_state.df.columns[10:129].tolist()
 
-tab1, tab2 = st.tabs(['Elements', 'Holder Images'])
+tab1, tab2 = st.tabs(['Elements', 'Images'])
 
 with tab1:
     colel1_1, colel1_2 = st.columns([1,3])
