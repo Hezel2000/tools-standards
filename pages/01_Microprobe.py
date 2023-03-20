@@ -23,8 +23,5 @@ with tab1:
         st.dataframe(df)
     
 with tab2:
-    st.write('test')
-
-    image = Image.open('data/Astimex.png')
-
-    st.image(image, caption='Sunrise by the mountains')
+    st.session_state.std_name = st.selectbox('test', ['Block 3', 'Astimex', 'NBS Metals','3R'])
+    st.image(Image.open('data/std_images/' + st.session_state.std_name + '.png'), caption=st.session_state.std_name)
