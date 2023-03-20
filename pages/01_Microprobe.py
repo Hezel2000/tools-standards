@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
-st.sidebar.button('Back to GeoPlatform', f'''<a href='http://geoplatform.de'><button style="background-color:LightYellow;">Back to GeoPlatform</button></a>''')
-st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="background-color:GreenYellow;">Back to GeoPlatform</button></a>''',unsafe_allow_html=True)
+from PIL import Image
+
+st.sidebar.markdown(f'''<a href='http://geoplatform.de'><button style="background-color:LightGreen;">Back to GeoPlatform</button></a>''',unsafe_allow_html=True)
+
 df = pd.read_csv('data/epma_standards.csv')
 elements = df.columns[10:129].tolist()
 
@@ -22,3 +24,7 @@ with tab1:
     
 with tab2:
     st.write('test')
+
+    image = Image.open('data/Astimex.png')
+
+    st.image(image, caption='Sunrise by the mountains')
