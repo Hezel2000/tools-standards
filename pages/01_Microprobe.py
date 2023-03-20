@@ -23,7 +23,7 @@ with tab1:
     st.dataframe(df1[fil].insert(3, st.session_state.el1, df_el_series))
 
     with st.expander('The entire standards table'):
-        st.dataframe(st.session_state.df1)
+        st.dataframe(st.session_state.df)
     
 with tab2:
     st.session_state.std_name = st.selectbox('Select Standard', ['Block 3', 'NBS Metals', 'Astimex', '3R', 'Current Standard Holder', 'Block 4', 'NIST NBS Glasses'], index=4
