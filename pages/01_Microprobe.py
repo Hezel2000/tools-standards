@@ -20,7 +20,7 @@ with tab1:
     fil = (df1[st.session_state.el1] > st.session_state.el1_range[0]) & (df1[st.session_state.el1] < st.session_state.el1_range[1])
     df_el_series = df1[fil][st.session_state.el1]
     df1[fil].drop(st.session_state.el1, axis=1, inplace=True)
-    st.dataframe(df1.insert(3, 'xxxxxxx', df_el_series))
+    st.dataframe(df1)#.insert(3, 'xxxxxxx', df_el_series))
 
     with st.expander('The entire standards table'):
         st.dataframe(st.session_state.df)
