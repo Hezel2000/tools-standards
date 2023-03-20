@@ -3,4 +3,3 @@ pandas
 streamlit
 plotly
 numpy
-PIL
