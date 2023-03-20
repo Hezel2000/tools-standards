@@ -12,7 +12,7 @@ tab1, tab2 = st.tabs(['Elements', 'Holder Images'])
 with tab1:
     colel1_1, colel1_2 = st.columns([1,3])
     with colel1_1:
-        st.session_state.el1 = st.selectbox('Element', elements, index=8)
+        st.session_state.el1 = st.selectbox('Select Element', elements, index=8)
     with colel1_2:
         st.session_state.el1_range = st.slider('sel', .0, 100.0, (0., 100.))
 
@@ -23,6 +23,7 @@ with tab1:
         st.dataframe(df)
     
 with tab2:
-    st.session_state.std_name = st.selectbox('test', ['Block 3', 'NBS Metals', 'Astimex', '3R', 'Current Standard Holder', 'Block 4', 'NIST NBS Glasses'])
+    st.session_state.std_name = st.selectbox('Select Standard', ['Block 3', 'NBS Metals', 'Astimex', '3R', 'Current Standard Holder', 'Block 4', 'NIST NBS Glasses'], index=4
+                                             )
     image = Image.open('data/std_images/' + st.session_state.std_name + '.png')
     st.image(image, caption=st.session_state.std_name)
